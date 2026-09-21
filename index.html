@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitHomeBase - Home Workouts & Healthy Living</title>
+    <meta name="description" content="Discover the best no-equipment home workouts, weight loss tips, and healthy recipes to stay fit every day.">
+    
+    <!-- أيقونة الموقع وصورة المعاينة -->
+    <link rel="icon" type="image/png" href="cover.png">
+    <meta property="og:title" content="FitHomeBase - Home Workouts & Healthy Living">
+    <meta property="og:description" content="Simple no-equipment home workouts, fat-burning routines, and healthy lifestyle tips.">
+    <meta property="og:image" content="mg.png">
+    <meta property="og:type" content="website">
+
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text-dark); line-height: 1.6; }
+
+        header { background: var(--card-bg); border-bottom: 1px solid #e2e8f0; padding: 18px 0; position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-box { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
+        .logo-img { width: 32px; height: 32px; border-radius: 6px; object-fit: cover; }
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+        .logo span { color: var(--text-dark); }
+
+        .hero { background: linear-gradient(135deg, #10b981, #0284c7); color: white; text-align: center; padding: 50px 20px; margin-bottom: 25px; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 10px; font-weight: 800; }
+        .hero p { font-size: 1.1rem; opacity: 0.95; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px 60px 20px; }
+
+        /* شريط الأقسام */
+        .categories-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .cat-btn {
+            background-color: #e2e8f0;
+            color: var(--text-dark);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cat-btn:hover, .cat-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* شبكة المقالات */
+        .posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .post-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.04); transition: transform 0.2s; }
+        .post-card:hover { transform: translateY(-3px); }
+        .post-img { width: 100%; height: 170px; object-fit: cover; background: #e2e8f0; }
+        .post-content { padding: 18px; }
+        .post-cat { font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 6px; display: inline-block; }
+        .post-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; cursor: pointer; }
+        .post-excerpt { color: var(--text-gray); font-size: 0.88rem; margin-bottom: 12px; }
+        .read-btn { background: var(--primary); color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+
+        /* عرض المقال المنفرد */
+        .single-post { background: white; padding: 30px; border-radius: 12px; border: 1px solid #e2e8f0; display: none; }
+        .single-post img { width: 100%; max-height: 380px; object-fit: cover; border-radius: 8px; margin-bottom: 20px; }
+        .single-post h1 { font-size: 1.8rem; margin-bottom: 15px; }
+        .back-btn { display: inline-block; margin-bottom: 15px; color: var(--primary); font-weight: bold; cursor: pointer; text-decoration: none; }
+
+        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 25px 20px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a onclick="showHome()" class="logo-box">
+                <img src="cover.png" alt="Icon" class="logo-img" onerror="this.style.display='none'">
+                <div class="logo">FitHome<span>Base</span></div>
+            </a>
+        </div>
+    </header>
+
+    <div id="hero-section" class="hero">
+        <h1>Transform Your Body at Home</h1>
+        <p>No-equipment home workouts & healthy living tips.</p>
+    </div>
+
+    <main class="container">
+        <!-- صفحة قائمة المقالات -->
+        <div id="home-view">
+            <!-- أزرار الأقسام -->
+            <div class="categories-nav">
+                <button class="cat-btn active" onclick="filterCategory('All', this)">All</button>
+                <button class="cat-btn" onclick="filterCategory('Home Workouts', this)">Home Workouts</button>
+                <button class="cat-btn" onclick="filterCategory('Nutrition', this)">Nutrition</button>
+                <button class="cat-btn" onclick="filterCategory('Weight Loss', this)">Weight Loss</button>
+            </div>
+
+            <div id="posts-container" class="posts-grid"></div>
+        </div>
+
+        <!-- صفحة قراءة المقال الكامل -->
+        <div id="single-view" class="single-post">
+            <span class="back-btn" onclick="showHome()">← Back to Articles</span>
+            <br>
+            <span id="post-cat-detail" class="post-cat"></span>
+            <h1 id="post-title-detail"></h1>
+            <img id="post-img-detail" src="" alt="">
+            <div id="post-body-detail"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 FitHomeBase. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.blogPosts = {};
+        let currentCategory = 'All';
+
+        // قائمة بملفات المقالات التي تنزلها
+        const postFiles = [1, 2]; // أضف 3 عند تنزيل sub3.js
+
+        function loadScript(src) {
+            return new Promise((resolve) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = () => resolve(true);
+                script.onerror = () => resolve(false);
+                document.body.appendChild(script);
+            });
+        }
+
+        async function loadAllPosts() {
+            for (let i of postFiles) {
+                await loadScript(`sub${i}.js`);
+            }
+            renderPosts();
+        }
+
+        function filterCategory(categoryName, btnElement) {
+            currentCategory = categoryName;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+            renderPosts();
+        }
+
+        function renderPosts() {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+
+            const keys = Object.keys(window.blogPosts).map(Number).reverse();
+            let found = false;
+
+            for (let id of keys) {
+                const post = window.blogPosts[id];
+                if (!post) continue;
+
+                // تصفية حسب القسم المختار
+                if (currentCategory !== 'All' && post.category !== currentCategory) {
+                    continue;
+                }
+
+                found = true;
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.innerHTML = `
+                    <img src="${post.image}" alt="${post.title}" class="post-img">
+                    <div class="post-content">
+                        <span class="post-cat">${post.category}</span>
+                        <h3 class="post-title" onclick="openPost(${post.id})">${post.title}</h3>
+                        <p class="post-excerpt">${post.excerpt}</p>
+                        <button class="read-btn" onclick="openPost(${post.id})">Read Article →</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+
+            if (!found) {
+                container.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#888;">No articles found in this category.</p>';
+            }
+        }
+
+        function openPost(id) {
+            const post = window.blogPosts[id];
+            if (!post) return;
+
+            document.getElementById('home-view').style.display = 'none';
+            document.getElementById('hero-section').style.display = 'none';
+            document.getElementById('single-view').style.display = 'block';
+
+            document.getElementById('post-cat-detail').innerText = post.category;
+            document.getElementById('post-title-detail').innerText = post.title;
+            document.getElementById('post-img-detail').src = post.image;
+            document.getElementById('post-body-detail').innerHTML = post.content;
+
+            window.scrollTo(0, 0);
+        }
+
+        function showHome() {
+            document.getElementById('single-view').style.display = 'none';
+            document.getElementById('home-view').style.display = 'block';
+            document.getElementById('hero-section').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        window.onload = loadAllPosts;
+    </script>
+</body>
+</html>
